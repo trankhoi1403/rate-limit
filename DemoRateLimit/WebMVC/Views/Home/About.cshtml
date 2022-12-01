@@ -1,0 +1,32 @@
+﻿@{
+    ViewBag.Title = "Report";
+}
+<h2>@ViewBag.Title.</h2>
+<h3>@ViewBag.Message</h3>
+
+<input id="input" class="input-sm" placeholder="request data" />
+<button id="btnGetReport" class="btn btn-primary">Get Report</button>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+<script>
+    $('#btnGetReport').click(function () {
+        let data = $('input').val();
+        $.ajax({
+            url: "/Home/GetReport",
+            type: "POST",
+            async: false,
+            dataType: "JSON",
+            data: {
+                param1: data
+            },
+            success: function (data) {
+                console.log(data)
+                alert(`Action: ${data.Action}, Data: ${data.Data}`)
+            },
+            error: function (err) {
+                console.log(err)
+                alert(`${err.responseText} (${err.status})`)
+            }
+        })
+    });
+</script>
